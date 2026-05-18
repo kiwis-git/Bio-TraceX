@@ -53,7 +53,7 @@ export function TrackingChart() {
                 contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0', backgroundColor: 'var(--background)' }}
                 itemStyle={{ color: 'var(--foreground)' }}
               />
-              <Legend verticalAlign="top" height={36} />
+              <Legend verticalAlign="top" wrapperStyle={{ paddingBottom: '20px' }} />
               
               {/* Threshold Lines */}
               <ReferenceLine y={10} label="Critical Ruined Threshold" stroke="red" strokeDasharray="3 3" />

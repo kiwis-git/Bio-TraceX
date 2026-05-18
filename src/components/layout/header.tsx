@@ -21,7 +21,7 @@ export function Header() {
   } = usePocContext();
 
   return (
-    <header className="flex flex-col xl:flex-row min-h-16 items-start xl:items-center justify-between border-b bg-background pl-14 pr-4 py-3 xl:px-6 xl:py-0 gap-3 xl:gap-0 w-full">
+    <header className="flex flex-col xl:flex-row min-h-16 shrink-0 items-start xl:items-center justify-between border-b bg-background pl-14 pr-4 py-3 xl:px-6 xl:py-0 gap-3 xl:gap-0 w-full z-10">
       <div className="flex w-full xl:w-auto items-center gap-2 xl:gap-4 overflow-x-auto pb-1 xl:pb-0 scrollbar-hide shrink-0">
         
         {/* Tenant Context Selector */}
