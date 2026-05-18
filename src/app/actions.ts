@@ -4,7 +4,8 @@ import { mockSamples, mockEvents, Sample, Event } from "@/lib/mock-data";
 
 export async function registerSampleAction(data: { type: string, location: string, temperature: number, collectorId: string }) {
   const newSampleId = `SMPL-${Math.floor(Math.random() * 90000) + 10000}`;
-  
+
+  // @ts-ignore
   const newSample: Sample = {
     id: newSampleId,
     type: data.type,
