@@ -54,7 +54,9 @@ export function Header() {
           <span className="text-xs font-semibold text-muted-foreground uppercase">Study:</span>
           <Select 
             value={activeStudyId} 
-            onValueChange={setActiveStudyId}
+            onValueChange={(val) => {
+              if (val) setActiveStudyId(val);
+            }}
           >
             <SelectTrigger className="w-[120px] h-8 text-xs">
               <SelectValue placeholder="Select Study" />

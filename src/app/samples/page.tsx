@@ -96,11 +96,9 @@ export default function SamplesList() {
         <div className="flex items-center gap-2">
           <Button variant="outline" disabled={isTrainingExpired}>Register New Sample (OCR Mock)</Button>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button disabled={isTrainingExpired} className={isTrainingExpired ? "opacity-50 cursor-not-allowed" : ""}>
-                <Plus className="mr-2 h-4 w-4" />
-                {isTrainingExpired ? "Training Expired - Locked" : "Manual Entry"}
-              </Button>
+            <DialogTrigger render={<Button disabled={isTrainingExpired} className={isTrainingExpired ? "opacity-50 cursor-not-allowed" : ""} />}>
+              <Plus className="mr-2 h-4 w-4" />
+              {isTrainingExpired ? "Training Expired - Locked" : "Manual Entry"}
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
