@@ -1,61 +1,103 @@
-import React from 'react';
-import Link from 'next/link';
+"use client";
 
-// 1. FIXED: Added the 'export' keyword right here so layout.tsx can find it!
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { LayoutDashboard, FlaskConical, AlertTriangle, Settings, LogOut, PackageSearch, BarChart3, X, Menu } from 'lucide-react';
+import { useState } from 'react';
+
 export function Sidebar() {
-  return (
-    <div className="sidebar-container">
-      {/* Your logo block */}
-      <div className="sidebar-logo" style={{ fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '2rem' }}>
-        🧪 BioTraceX
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const getLinkClass = (path: string) => {
+    const isActive = path === '/' ? pathname === '/' : pathname.startsWith(path);
+    return `flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${isActive
+        ? 'bg-primary/10 text-primary font-medium'
+        : 'text-muted-foreground hover:bg-muted font-medium'
+      }`;
+  };
+
+  const NavContent = () => (
+    <>
+      <div className="flex items-center gap-2 px-2 mb-10">
+        <div className="bg-primary/10 p-2 rounded-lg">
+          <FlaskConical className="h-6 w-6 text-primary" />
+        </div>
+        <span className="text-xl font-bold tracking-tight">BioTraceX</span>
       </div>
 
-      {/* Your navigation links */}
-      <nav style={{ display: 'flex', flexDirection: 'inherit', gap: '1rem' }}>
-        <Link href="/" style={{ textDecoration: 'none', color: '#333' }}>
+      <nav className="flex-1 space-y-2">
+        <Link href="/" className={getLinkClass('/')} onClick={() => setIsOpen(false)}>
+          <LayoutDashboard className="h-5 w-5" />
           <span>Dashboard</span>
         </Link>
-        <Link href="/tracking" style={{ textDecoration: 'none', color: '#333' }}>
+        <Link href="/samples" className={getLinkClass('/samples')} onClick={() => setIsOpen(false)}>
+          <PackageSearch className="h-5 w-5" />
           <span>Sample Tracking</span>
         </Link>
-        <Link href="/admin/logs" style={{ textDecoration: 'none', color: '#333' }}>
-          <span>Security Logs</span>
+        <Link href="/alerts" className={getLinkClass('/alerts')} onClick={() => setIsOpen(false)}>
+          <AlertTriangle className="h-5 w-5" />
+          <span>Alerts</span>
+        </Link>
+        <Link href="/analytics" className={getLinkClass('/analytics')} onClick={() => setIsOpen(false)}>
+          <BarChart3 className="h-5 w-5" />
+          <span>Analytics</span>
         </Link>
       </nav>
 
-      {/* 2. YOUR RESPONSIBLE CSS: Embedded cleanly right inside the component frame */}
-      <style>{`
-        .sidebar-container {
-          width: 260px;
-          border-right: 1px solid #eaeaea;
-          padding: 1.5rem;
-          display: flex;
-          flex-direction: column;
-          background-color: #f9f9f9;
-        }
+      <div className="mt-auto pt-8 border-t">
+        <nav className="space-y-2">
+          <Link href="/settings" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground hover:bg-muted transition-all" onClick={() => setIsOpen(false)}>
+            <Settings className="h-5 w-5" />
+            <span className="font-medium">Settings</span>
+          </Link>
+          <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/50 transition-all">
+            <LogOut className="h-5 w-5" />
+            <span className="font-medium">Logout</span>
+          </button>
+        </nav>
+      </div>
+    </>
+  );
 
-        /* 📱 Mobile UI Morph */
-        @media (max-width: 768px) {
-          .sidebar-container {
-            width: 100%;
-            height: auto;
-            border-right: none;
-            border-bottom: 1px solid #eaeaea;
-            padding: 0.75rem 1rem;
-            flex-direction: row; 
-            align-items: center;
-            justify-content: space-between;
-          }
-          
-          .sidebar-logo {
-            margin-bottom: 0 !important;
-          }
+  return (
+    <>
+      {/* Hamburger button - mobile only */}
+      <button
+        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-background border shadow-sm"
+        onClick={() => setIsOpen(true)}
+      >
+        <Menu className="h-5 w-5" />
+      </button>
 
-          .sidebar-container a span {
-            font-size: 0.85rem;
-          }
-        }
-      `}</style>
-    </div>
+      {/* Dark overlay - mobile only */}
+      {isOpen && (
+        <div
+          className="md:hidden fixed inset-0 z-40 bg-black/50"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Mobile sidebar */}
+      <div className={`
+        md:hidden fixed top-0 left-0 z-50 h-screen w-72 flex flex-col
+        border-r bg-background px-4 py-8
+        transform transition-transform duration-300
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        <button
+          className="absolute top-4 right-4 p-1 rounded-lg hover:bg-muted"
+          onClick={() => setIsOpen(false)}
+        >
+          <X className="h-5 w-5" />
+        </button>
+        <NavContent />
+      </div>
+
+      {/* Desktop sidebar */}
+      <div className="hidden md:flex h-screen w-64 flex-col border-r bg-background px-4 py-8">
+        <NavContent />
+      </div>
+    </>
   );
 }
