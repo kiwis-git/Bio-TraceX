@@ -1,6 +1,6 @@
 "use server";
 
-import { mockSamples, mockEvents, Sample, Event } from "@/lib/mock-data";
+import { mockSamples, mockEvents, Sample, Event, mockSecurityLogs, SecurityLog } from "@/lib/mock-data";
 import { verifyAccess } from "@/access/access";
 import { createAuditLog } from "@/audit-log/audit";
 import { applySignature } from "@/lib/e-signature";
@@ -27,7 +27,6 @@ export async function registerSampleAction(data: {
 
   const newSampleId = `SMPL-${Math.floor(Math.random() * 90000) + 10000}`;
 
-  // @ts-ignore
   const newSample: Sample = {
     id: newSampleId,
     type: data.type,
@@ -65,4 +64,8 @@ export async function registerSampleAction(data: {
   });
 
   return newSample;
+}
+
+export async function getSecurityLogsAction(): Promise<SecurityLog[]> {
+  return mockSecurityLogs; 
 }

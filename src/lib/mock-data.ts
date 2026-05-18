@@ -326,3 +326,42 @@ export const mockAlerts: Alert[] = [
     resolved: false
   }
 ];
+
+export interface SecurityLog {
+  id: string;
+  timestamp: string;
+  userId: string;
+  action: string;
+  status: 'Success' | 'Failed';
+  ipAddress: string;
+  details?: string;
+}
+
+export const mockSecurityLogs: SecurityLog[] = [
+  {
+    id: "SEC-001",
+    timestamp: new Date(Date.now() - 3600000).toISOString(),
+    userId: "TECH-001",
+    action: "Login Attempt",
+    status: "Success",
+    ipAddress: "192.168.1.105"
+  },
+  {
+    id: "SEC-002",
+    timestamp: new Date(Date.now() - 7200000).toISOString(),
+    userId: "UNKNOWN",
+    action: "Failed Login",
+    status: "Failed",
+    ipAddress: "45.22.19.10",
+    details: "Invalid password for user MGR-102"
+  },
+  {
+    id: "SEC-003",
+    timestamp: new Date(Date.now() - 86400000).toISOString(),
+    userId: "SCI-014",
+    action: "Data Export",
+    status: "Success",
+    ipAddress: "192.168.2.55",
+    details: "Exported study data for STD-101A"
+  }
+];

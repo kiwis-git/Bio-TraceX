@@ -326,7 +326,7 @@ export default function SamplesList() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={6} className="text-center h-24 text-muted-foreground">
-                    No samples found matching "{searchQuery}"
+                    No samples found matching &quot;{searchQuery}&quot;
                   </TableCell>
                 </TableRow>
               )}

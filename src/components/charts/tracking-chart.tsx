@@ -24,13 +24,13 @@ const data = [
 ];
 
 export function TrackingChart() {
-  const handleChartClick = (e: any) => {
+  const handleChartClick = (e: { activeLabel?: string | number; activePayload?: { dataKey: string; value: number }[] }) => {
     if (e && e.activePayload) {
       const time = e.activeLabel;
-      const isProjected = e.activePayload.some((p: any) => p.dataKey.includes('_proj') && p.value > 0);
+      const isProjected = e.activePayload.some((p) => p.dataKey.includes('_proj') && p.value > 0);
       
       if (isProjected) {
-        alert(`[Anomaly Investigation Artifact]\n\nTime: ${time}\nForecasted Ruined: ${e.activePayload.find((p:any)=>p.dataKey==='ruined_proj')?.value}\nThreshold Exceeded! Drill-down unavailable for future state.`);
+        alert(`[Anomaly Investigation Artifact]\n\nTime: ${time}\nForecasted Ruined: ${e.activePayload.find((p)=>p.dataKey==='ruined_proj')?.value}\nThreshold Exceeded! Drill-down unavailable for future state.`);
       } else {
         alert(`Drilling down into ${time} samples...\n(Simulated Modal)`);
       }
