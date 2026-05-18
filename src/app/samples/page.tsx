@@ -225,8 +225,8 @@ export default function SamplesList() {
               <CardDescription>Live data reflecting current global inventory.</CardDescription>
             </div>
             
-            <div className="flex items-center gap-2 mt-4 sm:mt-0">
-              <div className="relative w-full max-w-sm">
+            <div className="flex flex-wrap items-center gap-2 mt-4 sm:mt-0 w-full sm:w-auto">
+              <div className="relative w-full sm:max-w-sm">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="search"
@@ -238,7 +238,7 @@ export default function SamplesList() {
               </div>
 
               <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v || "all")}>
-                <SelectTrigger className="w-[140px]">
+                <SelectTrigger className="w-[140px] flex-1 sm:flex-none">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -253,7 +253,7 @@ export default function SamplesList() {
               </Select>
 
               <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v || "all")}>
-                <SelectTrigger className="w-[160px]">
+                <SelectTrigger className="w-[140px] flex-1 sm:flex-none">
                   <SelectValue placeholder="Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -274,6 +274,7 @@ export default function SamplesList() {
                     setTypeFilter("all");
                   }}
                   title="Clear Filters"
+                  className="shrink-0"
                 >
                   <FilterX className="h-4 w-4 text-muted-foreground" />
                 </Button>
